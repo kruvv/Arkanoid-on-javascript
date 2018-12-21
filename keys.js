@@ -2,7 +2,9 @@ var keys = {
   'W': 87,
   'S': 83,
   'A': 65,
-  'D': 68
+  'D': 68,
+  'LEFT': 39,
+  'RIGHT': 37
 };
 var keyDown = {}
 
@@ -20,6 +22,7 @@ var isKeyDown = function (keyName) {
 
 window.onkeydown = function (e) {
   setKey(e.keyCode);
+  console.log(e.keyCode);
 };
 window.onkeyup = function (e) {
   clearKey(e.keyCode);

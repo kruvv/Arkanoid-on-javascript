@@ -10,25 +10,22 @@
   <script src="keys.js"></script>
   <script src="engine.js"></script>
   <script src="graph.js"></script>
+  <script src="player.js"></script>
 
   <canvas id="canvas" width="640" height="480"></canvas>
 
   <script type="text/javascript">
     init();
 
-    var x = 15;
     var game = function() {
       fillAll('#acdae6');
-      drawRect(x, 460, 100, 10, 'blue');
-
-      if (isKeyDown('D'))
-        x++;
-      if (isKeyDown('A'))
-          x--;
+      player.move();
+      player.draw();
 
     };
 
     startGame(game);
+
   </script>
 
 
