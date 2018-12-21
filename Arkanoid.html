@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Arkanoid</title>
+</head>
+
+<body>
+  <script src="keys.js"></script>
+  <script src="engine.js"></script>
+  <script src="graph.js"></script>
+
+  <canvas id="canvas" width="640" height="480"></canvas>
+
+  <script type="text/javascript">
+    init();
+
+    var x = 15;
+    var game = function() {
+      fillAll('#acdae6');
+      drawRect(x, 460, 100, 10, 'blue');
+
+      if (isKeyDown('D'))
+        x++;
+      if (isKeyDown('A'))
+          x--;
+
+    };
+
+    startGame(game);
+  </script>
+
+
+</body>
+
+</html>
