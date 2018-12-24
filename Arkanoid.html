@@ -42,13 +42,13 @@
             this.add(dX, dY, w, h, color);
             dX += w + dW;
           }
-            dY += h + dW;
-            dX = dW;
+          dY += h + dW;
+          dX = dW;
         }
       },
       // Удаляет один елемент при попададии в него при игре
       destroy: function(id) {
-
+        this.nodes.splice(id, 1);
       },
 
       draw: function() {
@@ -69,13 +69,66 @@
     _Enemy.prototype.draw = function() {
       drawRect(this.x, this.y, this.width, this.height, this.color);
     };
+    // Обьект шар
+    var ball = {
+      speed: 1,
+      dx: 1,
+      dy: -1,
+      color: 'blue',
+      x: 0,
+      y: 0,
+      radius: 5,
+      // Отрисовка игрового шара
+      draw: function() {
+        drawCircle(this.x, this.y, this.radius, this.color);
+      },
+      //Инициализация шара
+      init: function (x, y, radius, color) {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.color = color;
+      },
+      // Движение шара
+      move: function() {
+        this.x += this.speed * this.dx;
+        this.y += this.speed * this.dy;
+      },
+      // Обработка столкновения шара
+      collision: function() {
+        for(var i in grid.nodes) {
+          var enemy = grid.nodes[i];
+          if(isCollision(this.x - this.radius, this.y - this.radius, this.radius*2, this.radius*2
+            , enemy.x, enemy.y, enemy.width, enemy.height)) {
+              this.dy *= -1;
+              grid.destroy(i);
+          }
+        }
+        if(isCollision(this.x - this.radius, this.y - this.radius, this.radius*2, this.radius*2
+          , player.x, player.y, player.width, player.height)) {
+            this.dy *= -1;
+        }
+        if(this.x + this.radius >= width) {
+          this.dx *= -1;
+        }
+        if(this.x - this.radius <= 0) {
+          this.dx = 1;
+        }
+      },
 
+
+    };
 
     grid.generate(5, 60, 30, 'red');
+    ball.init(player.x + Math.ceil(player.width / 2), player.y - 5, 5, 'blue');
 
     var game = function() {
       fillAll('#acdae6');
       grid.draw();
+
+      ball.collision();
+      ball.move();
+      ball.draw();
 
       player.move();
       player.draw();
