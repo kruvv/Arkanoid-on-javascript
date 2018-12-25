@@ -17,5 +17,11 @@ var player = {
       this.x += this.speed;
     if (isKeyDown('A') || isKeyDown('RIGHT'))
       this.x -= this.speed;
+  },
+//Инициализация игрока
+  init: function (x, w, color) {
+    this.x = x;
+    this.width = w;
+    this.color = color;
   }
 };
