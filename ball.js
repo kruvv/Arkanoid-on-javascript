@@ -8,6 +8,15 @@ var ball = {
   x: 0,
   y: 0,
   radius: 5,
+
+  //Очистка и сброс параметров мяча
+  clear: function () {
+    this.speedX = 1;
+    this.speedY = 1;
+    this.dx = 1;
+    this.dy = -1;
+
+  },
   // Отрисовка игрового шара
   draw: function() {
     drawCircle(this.x, this.y, this.radius, this.color);
@@ -58,7 +67,13 @@ var ball = {
     }
     if(this.y >= height) {
       if (player.hp < 1) {
-        console.log('Вы проиграли(((');
+        // var ops = confirm('Вы проиграли. Для начала новой игры нажмите ОК')
+        // alert(ops);
+        player.score = 0;
+        player.hp = 3;
+        grid.clear();
+        ball.clear();
+        grid.create(map);
       }
       player.updHp(1);
       ball.init(player.x + Math.ceil(player.width / 2), player.y - 5, 5, 'blue');

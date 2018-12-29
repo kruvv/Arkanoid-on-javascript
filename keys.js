@@ -20,6 +20,14 @@ var isKeyDown = function (keyName) {
   return keyDown[keys[keyName]] == true;
 };
 
+var isAnyKeyDown = function () {
+  for (var k in keyDown) {
+    if (keyDown[k]) {
+      return true;
+    }
+  }
+};
+
 window.onkeydown = function (e) {
   setKey(e.keyCode);
   console.log(e.keyCode);

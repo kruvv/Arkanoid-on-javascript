@@ -28,22 +28,34 @@ var grid = {
     }
   },
   //Создание карты уровня
-  create: function (map) {
+  create: function(map) {
     var dOffsetX = (width - (map.tiles[0].length * (map.width + map.offset))) / 2;
-    for(var t1 in map.tiles) {
-      for(var t2 in map.tiles[t1]) {
+    for (var t1 in map.tiles) {
+      for (var t2 in map.tiles[t1]) {
         var tile = map.tiles[t1][t2];
         var dx = dOffsetX + t2 * (map.width + map.offset);
         var dy = map.offset + t1 * (map.height + map.offset);
-        if(tile == 1) {
+        if (tile == 1) {
           this.add(dx, dy, map.width, map.height, map.color);
         }
       }
     }
   },
+  //Очистка экрана
+  clear: function() {
+    this.nodes = [];
+  },
   // Удаляет один елемент при попададии в него при игре
   destroy: function(id) {
     this.nodes.splice(id, 1);
+
+    if (this.nodes <= 0) {
+      document.getElementById("win").style.display = 'inline';
+      grid.clear();
+      ball.clear();
+      setInterval(location.reload(), 50000); // ссылка на следующий LvL
+      // TODO: Сделать переход на другой уровень
+    }
   },
 
   draw: function() {

@@ -13,6 +13,7 @@
   <script src="player.js"></script>
   <script src="grid.js"></script>
   <script src="ball.js"></script>
+  <script src="gamemap.js"></script>
 
   <canvas id="canvas" width="640" height="480" style="position: absolute; top: 0; left: 0;"></canvas>
   <div style="position: absolute; top: 10px; left: 10px;">
@@ -22,25 +23,6 @@
 
   <script type="text/javascript">
     init();
-    //Карта уровня
-    var map = {
-      color: '#c75252',
-      width: 40,
-      height: 20,
-      offset: 5,
-
-      tiles: [
-        [1, 1, 0, 0, 1, 1],
-        [1, 1, 0, 0, 1, 1],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 1, 1, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [1, 0, 0, 0, 0, 1],
-        [0, 1, 1, 1, 1, 0]
-      ]
-    };
-
     grid.create(map);
     player.init(width / 2, 200, 'blue');
     ball.init(player.x + Math.ceil(player.width / 2), player.y - 5, 5, 'blue');
@@ -58,7 +40,18 @@
 
     };
 
-    startGame(game);
+    var menu = function() {
+      fillAll('#acdae6');
+      grid.draw();
+      ball.draw();
+      player.draw();
+
+      if (isAnyKeyDown()) {
+        setGame(game);
+      }
+    };
+
+    startGame(menu);
   </script>
 
 
